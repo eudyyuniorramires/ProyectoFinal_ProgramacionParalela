@@ -1,20 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectoFinal_ProgramacionParalela.Models
+namespace ProyectoFinal_ProgramacionParalela.Models;
+
+/// <summary>
+/// Representa un producto en el inventario.
+/// </summary>
+public class Producto
 {
-    public class Producto
-    {
-        public int Id { get; set; }
+    /// <summary>
+    /// El identificador único del producto.
+    /// </summary>
+    public int Id { get; set; }
 
-        public string Nombre { get; set; }
+    /// <summary>
+    /// El nombre del producto. Se inicializa como "not null!" para satisfacer al compilador.
+    /// </summary>
+    public string Nombre { get; set; } = null!;
 
-        public string Marca { get; set; }
+    /// <summary>
+    /// La categoría a la que pertenece el producto.
+    /// </summary>
+    public string Categoria { get; set; } = null!;
 
-        public double Precio { get; set; }
+    /// <summary>
+    /// El precio del producto. Se usa 'decimal' para mayor precisión en cálculos monetarios.
+    /// </summary>
+    public decimal Precio { get; set; }
 
-    }
+    /// <summary>
+    /// La marca del producto.
+    /// </summary>
+    public string Marca { get; set; } = null!;
 }

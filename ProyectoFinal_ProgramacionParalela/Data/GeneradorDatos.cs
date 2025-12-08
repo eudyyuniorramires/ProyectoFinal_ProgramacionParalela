@@ -1,55 +1,47 @@
-﻿using ProyectoFinal_ProgramacionParalela.Models;
+
+using ProyectoFinal_ProgramacionParalela.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoFinal_ProgramacionParalela.Data
 {
-
-   
     public static class GeneradorDatos
     {
+        private static readonly Random random = new Random();
 
-       
-        private static readonly string[] Marcas = { "Samsung", "Apple", "Sony", "LG", "Dell", "HP", "Asus", "Lenovo", "Xiaomi" };
-        private static readonly string[] Tipos = { "Laptop", "Smartphone", "TV 4K", "Monitor", "Tablet", "Auriculares", "Cámara", "Reloj" };
-        private static readonly string[] Sufijos = { "Pro", "Ultra", "Lite", "Max", "Air", "Gaming", "Office", "X", "S" };
-        private static readonly string[] Versiones = { "2024", "2025", "v2", "Series 5", "X1", "G5" };
+        private static readonly string[] Marcas = { "Sony", "Samsung", "LG", "Panasonic", "HP", "Dell", "Lenovo", "Asus", "Acer", "Apple", "Microsoft", "Xiaomi" };
+        private static readonly string[] Modelos = { "Ultra", "Pro", "Max", "Lite", "Air", "Gaming", "Office", "Home" };
+        private static readonly string[] Sufijos = { "X1", "v2", "G5", "Series 5", "2024", "2025" };
+        private static readonly string[] TiposProducto = { "TV 4K", "Smartphone", "Laptop", "Monitor", "Tablet", "Auriculares", "Reloj", "Cámara" };
 
-        public static Producto[] GeneradorInventario(int cantidad) 
+        /// <summary>
+        /// Genera una lista de productos de inventario con datos aleatorios.
+        /// </summary>
+        /// <param name="cantidad">El número de productos a generar.</param>
+        /// <returns>Una lista de productos.</returns>
+        public static List<Producto> GeneradorInventario(int cantidad)
         {
-            Console.WriteLine($"Generando {cantidad:NO} productos en memoria...");
-            var random = new Random();
-            var invetario = new Producto[cantidad];
+            Console.WriteLine("Generando productos en memoria...");
+            var productos = new List<Producto>(cantidad);
 
+            for (int i = 0; i < cantidad; i++)
+            {
+                var tipo = TiposProducto[random.Next(TiposProducto.Length)];
+                var marca = Marcas[random.Next(Marcas.Length)];
+                var modelo = Modelos[random.Next(Modelos.Length)];
+                var sufijo = Sufijos[random.Next(Sufijos.Length)];
 
-            Parallel.For(0, cantidad, i => {
-
-                int marcaIndex = (i + random.Next(0,10)) % Marcas.Length;
-                int tipoIndex = (i + random.Next(0,10)) % Tipos.Length;
-                int sufijoIndex = random.Next(0, Sufijos.Length);
-                int versionIndex = random.Next(0, Versiones.Length);
-
-                string MarcaElegida = Marcas[marcaIndex];
-
-                string nombreGenerado = $"{Marcas[marcaIndex]} {Tipos[tipoIndex]} {Sufijos[sufijoIndex]} {Versiones[versionIndex]}";
-
-                invetario[i] = new Producto
+                productos.Add(new Producto
                 {
-                    Id = i+1000,
-                    Nombre = MarcaElegida,
-                    Marca = nombreGenerado,
-                    Precio = Math.Round(random.NextDouble() * 1000 + 100, 2)
-
-                };
-            
-           
-            });
-
-            return invetario;
-        
+                    Id = i + 1,
+                    Nombre = $"{marca} {tipo} {modelo} {sufijo}",
+                    Categoria = tipo, // Asignar la categoría
+                    Marca = $"{marca} {tipo} {modelo} {sufijo}", // Para mantener la granularidad de las estadísticas
+                    // Generar un precio decimal entre 100.00 y 1100.00
+                    Precio = (decimal)(random.NextDouble() * 1000 + 100) 
+                });
+            }
+            return productos;
         }
     }
 }
