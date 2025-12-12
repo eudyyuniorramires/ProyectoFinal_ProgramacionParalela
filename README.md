@@ -101,7 +101,13 @@ Las contribuciones son bienvenidas. Por favor:
 ## 👨‍💻 Autor
 
 **Eudy Yunior Ramires**
+
 - GitHub: [@eudyyuniorramires](https://github.com/eudyyuniorramires)
+  
+ **Jose Hubbardo Cuevas Sime**
+
+ - GitHub: [@JHCS021](https://github.com/JHCS021) 
+
 
 ## 📝 Licencia
 
